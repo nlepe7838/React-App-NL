@@ -11,7 +11,7 @@ export default function Sidebar({ initialMenuItems }) {
   const [filter, setFilter] = useState("")
   // Adds a single string passed in as parameter to the state element
   // "menuItems" that holds the set of current menu items.
-  function addMenuItem () {
+  const addMenuItem = useCallback(() => {
     if (newMenuItem.trim() === "") return
 
     setMenuItems([...menuItems, newMenuItem])
@@ -20,7 +20,7 @@ export default function Sidebar({ initialMenuItems }) {
     //   // This involves adding a parameter and changing a class instance variable (props).
     //   setMenuItems([item, ...menuItems])
 
-  }
+  }, [newMenuItem, menuItems])
 
   // TODO: 4. Display ONLY the menu items that contain the filter element value
   // "term" in them. Each menu item should be an unordered list item wrapped in an unordered list (ul) element.
@@ -42,12 +42,8 @@ export default function Sidebar({ initialMenuItems }) {
       ></input>
       <br />
       <button
-        onClick={() => {
-          if (newMenuItem.trim() === "") return
-          setMenuItems([...menuItems, newMenuItem])
-          setNewMenuItem("")
+        onClick={addMenuItem}
           /* TODO: 3 */
-        }}
       >
         Add Item
       </button>
